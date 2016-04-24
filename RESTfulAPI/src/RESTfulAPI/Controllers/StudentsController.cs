@@ -23,7 +23,7 @@ namespace RESTfulAPI.Controllers
         [HttpGet]
         public IEnumerable<Student> GetStudent()
         {
-            return _context.Student;
+            return _context.Students;
         }
 
         // GET: api/Students/5
@@ -35,7 +35,7 @@ namespace RESTfulAPI.Controllers
                 return HttpBadRequest(ModelState);
             }
 
-            Student student = await _context.Student.SingleAsync(m => m.StudentId == id);
+            Student student = await _context.Students.SingleAsync(m => m.StudentId == id);
 
             if (student == null)
             {
@@ -89,7 +89,7 @@ namespace RESTfulAPI.Controllers
                 return HttpBadRequest(ModelState);
             }
 
-            _context.Student.Add(student);
+            _context.Students.Add(student);
             try
             {
                 await _context.SaveChangesAsync();
@@ -118,13 +118,13 @@ namespace RESTfulAPI.Controllers
                 return HttpBadRequest(ModelState);
             }
 
-            Student student = await _context.Student.SingleAsync(m => m.StudentId == id);
+            Student student = await _context.Students.SingleAsync(m => m.StudentId == id);
             if (student == null)
             {
                 return HttpNotFound();
             }
 
-            _context.Student.Remove(student);
+            _context.Students.Remove(student);
             await _context.SaveChangesAsync();
 
             return Ok(student);
@@ -141,7 +141,7 @@ namespace RESTfulAPI.Controllers
 
         private bool StudentExists(int id)
         {
-            return _context.Student.Count(e => e.StudentId == id) > 0;
+            return _context.Students.Count(e => e.StudentId == id) > 0;
         }
     }
 }
